@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<import resource="spring-hibernate.xml"/>
+	<!-- 配置Action 的类 action由spring管理-->
+	<bean id="productActionBean" class="com.jxust.ssh.action.ProductAction" scope="prototype">
+		<property name="produceService" ref="productServiceBean"></property>
+	</bean>  
+	
+	<!-- 配置业务层的类 -->
+	<bean id="productServiceBean" class="com.jxust.ssh.service.ProductService">
+		<property name="productDao" ref="productDaoBean"/>
+	</bean>
+	
+	<!-- 配置dao层的类 -->
+	<bean id="productDaoBean" class="com.jxust.ssh.dao.ProductDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
